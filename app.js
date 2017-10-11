@@ -7,9 +7,15 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 3000;
 
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+
+app.get('/', (req, res) => {
+  res.send("Luigi");
+})
 
 // Search should be using Access Token
 // Then some search parameters
