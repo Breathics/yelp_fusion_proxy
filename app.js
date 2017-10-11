@@ -29,7 +29,7 @@ app.post('/search', (req, res) => {
   client.search(params).then(response => {
     // console.log(response.jsonBody.businesses[0].name);
     // res.json(response.jsonBody.businesses[0].name);
-    res.json({"Success": true, data: response.jsonBody})
+    res.json(response.jsonBody);
   }).catch(e => {
     var errors = [];
     if (req.body.term == undefined) errors.push("Please enter a valid term");
@@ -65,7 +65,7 @@ app.post('/reviews', (req, res) => {
   const client = yelp.client(req.body.access_token);    
   
   client.reviews(req.body.business_id).then(response => {
-    res.json({"Success": true, data: response.jsonBody});
+    res.json(response.jsonBody);
   }).catch(e => {
     var errors = [];
     if (req.body.term == undefined) errors.push("Please enter a valid business id");
