@@ -1,13 +1,10 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 3000;
-
-app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -41,24 +38,25 @@ app.post('/search', (req, res) => {
   });
 })
 
-app.post('/transaction', (req, res) => {
-  if (req.body.access_token == undefined){
-    res.json({"Success": false, errors: "Please enter a valid access token"});
-  }
-  const client = yelp.client(req.body.access_token);    
+// app.post('/transaction', (req, res) => {
+//   if (req.body.access_token == undefined){
+//     res.json({"Success": false, errors: "Please enter a valid access token"});
+//   }
+//   const client = yelp.client(req.body.access_token);  
+  
+//   console.log('this is the req.body', req.body);
 
-  client.transactionSearch(req.body.transactionType, {
-    location: req.body.location
-  }).then(response => {
-    console.log(response);
-  }).catch(e => {
-    var errors = [];
-    if (req.body.transactionType == undefined) errors.push("Please enter a valid transaction");
-    if (req.body.location == undefined) errors.push("Please enter a valid location");
-    res.json({"Success": false, errors});
-  });
-})
-
+//   client.transactionSearch('delivery', {
+//     location: 'san diego'
+//   }).then(response => {
+//     res.json({"Success": true, data: response.jsonBody});
+//   }).catch(e => {
+//     var errors = [];
+//     if (req.body.transactionType == undefined) errors.push("Please enter a valid transaction");
+//     if (req.body.location == undefined) errors.push("Please enter a valid location");
+//     res.json({"Success": false, errors});
+//   });
+// })
 
 app.post('/reviews', (req, res) => {
   if (req.body.access_token == undefined){
